@@ -11,19 +11,32 @@ import {
   Thumbnail,
   Text,
   Left,
-  Content
+  Content,
+  Icon,
+  Button
 } from "native-base";
 
 // Style
 import styles from "./styles";
 
 class CoffeeList extends Component {
-  handlePress() {
-    alert("Pressed");
-  }
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: "Coffee List",
+      headerLeft: null,
+      headerRight: (
+        <Button transparent onPress={() => navigation.navigate("Cart")}>
+          <Icon name="shopping-cart" type="Feather" />
+        </Button>
+      )
+    };
+  };
   renderItem(shop) {
     return (
-      <TouchableOpacity key={shop.id} onPress={() => this.handlePress(shop)}>
+      <TouchableOpacity
+        key={shop.id}
+        onPress={() => this.props.navigation.navigate("Detail", { shop: shop })}
+      >
         <ImageBackground
           source={{ uri: shop.background }}
           style={styles.background}
